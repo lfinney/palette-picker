@@ -1,0 +1,6 @@
+# dependencies
+/node_modules
+
+# styles
+/.sass-cache
+styles.css.map
