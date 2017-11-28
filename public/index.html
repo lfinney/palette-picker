@@ -11,10 +11,10 @@
     </header>
     <main>
       <section class="user-palettes">
-        <div class="project">
-          <div class="saved-palette">
+        <div id="project-template" class="project">
+          <div id="saved-palette-template">
             <div class="palette-title">Palette 1</div>
-            <div class="color-container">
+            <div class="small-color-container">
               <div id="color1" class="small-palette-color"></div>
               <div id="color2" class="small-palette-color"></div>
               <div id="color3" class="small-palette-color"></div>
@@ -25,12 +25,18 @@
         </div>
       </section>
       <section class="main-palette">
-        <div id="color1" class="color">Red</div>
-        <div id="color2" class="color">Orange</div>
-        <div id="color3" class="color">Yellow</div>
-        <div id="color4" class="color">Green</div>
-        <div id="color5" class="color">Blue</div>
+        <div class="color-container">
+          <div id="color1" class="color">Red</div>
+          <div id="color2" class="color">Orange</div>
+          <div id="color3" class="color">Yellow</div>
+          <div id="color4" class="color">Green</div>
+          <div id="color5" class="color">Blue</div>
+        </div>
+        <button class="create-palette-button">Create Palette</button>
       </section>
     </main>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/index.js" type="text/js"></script>
   </body>
 </html>
