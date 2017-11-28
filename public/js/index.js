@@ -22,7 +22,8 @@ const generateRandomColor = () => {
 const rollColors = () => {
   for(let i = 1; i < 6; i ++) {
     let color = generateRandomColor();
-    $(`.color${i}`).css('background-color', color)
+    $(`.color${i}`).css('background-color', color);
+    $(`.color-container .color${i}`).text(color);
     console.log(color);
   }
 }
