@@ -1,3 +1,24 @@
+header {
+  height: 10vh;
+}
+
 h1 {
-  color: green
+  color: green;
+  text-align: center;
+}
+
+main {
+  height: 90vh;
+  display: grid;
+  grid-template-columns: 400px auto;
+  grid-template-rows: 100%;
+  grid-template-areas: "user-palettes main-palette"
+}
+
+.user-palettes {
+  grid-area: user-palettes;
+}
+
+.main-palette {
+  grid-area: main-palette;
 }
