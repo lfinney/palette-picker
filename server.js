@@ -37,7 +37,7 @@ app.locals.projects = [
     id: 'b2',
     palettes: [
       {
-        id: 1,
+        id: 3,
         color1: "5ea56d",
         color2: "1623ae",
         color3: "2f487f",
@@ -62,4 +62,4 @@ app.get('/api/v1/projects/:id', (request, response) => {
   } else {
     return response.sendStatus(404);
   }
-})
+});
