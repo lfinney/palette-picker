@@ -1,5 +1,11 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 header {
   height: 10vh;
+  padding: 3vh;
 }
 
 h1 {
@@ -13,6 +19,10 @@ main {
   grid-template-columns: 400px auto;
   grid-template-rows: 100%;
   grid-template-areas: "user-palettes main-palette"
+}
+
+.user-palettes, .main-palettes {
+  padding: 10px;
 }
 
 .user-palettes {
@@ -50,6 +60,10 @@ main {
 
 .main-palette {
   grid-area: main-palette;
+}
+
+.color {
+  height: 20%;
 }
 
 #color1 {
