@@ -29,10 +29,10 @@ button {
 
 #saved-palette-template {
   position: relative;
-  width: 80%;
+  width: 90%;
   height: 60px;
   margin: auto;
-  padding: 5px 0; }
+  display: flex; }
 
 .palette-title {
   width: 80%;
@@ -45,13 +45,19 @@ button {
   display: flex;
   position: absolute;
   top: 0;
-  width: 100%;
+  width: 85%;
   z-index: 1; }
 
 .small-palette-color {
   flex-grow: 1;
   width: 20%;
   height: 50px; }
+
+.remove-palette-button {
+  width: 15%;
+  height: 50px;
+  margin: 0;
+  padding: 0; }
 
 .main-palette {
   grid-area: main-palette;
