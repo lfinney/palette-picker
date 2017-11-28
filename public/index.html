@@ -11,7 +11,12 @@
     </header>
     <main>
       <section class="user-palettes">
+        <div class="create-project-controls">
+          <input type="text" placeholder="New Project Name">
+          <button class="create-project-button">Create Project</button>
+        </div>
         <div id="project-template" class="project">
+          <h3 class="project-name">Project Name</h3>
           <div id="saved-palette-template">
             <div class="palette-title">Palette 1</div>
             <div class="small-color-container">
@@ -32,7 +37,16 @@
           <div id="color4" class="color">Green</div>
           <div id="color5" class="color">Blue</div>
         </div>
-        <button class="create-palette-button">Create Palette</button>
+        <div class="palette-controls">
+          <button class="roll-colors-button">Roll Colors</button>
+          <div class="create-palette-controls">
+            <select name="projects" id="project-dropdown">
+              <option value="">-Select Project-</option>
+            </select>
+            <input type="text" class="palette-name" placeholder="New Palette Name">
+            <button class="save-palette-button">Save Palette</button>
+          </div>
+        </div>
       </section>
     </main>
 
