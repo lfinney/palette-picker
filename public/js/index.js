@@ -7,7 +7,7 @@ const createProject = () => {
 
 const createPalette = () => {
   const template = $('#saved-palette-template').clone();
-  $('.user-palettes').append(template)
+  $('.project').append(template)
 };
 
 const generateRandomColor = () => {
@@ -23,7 +23,7 @@ const rollColors = () => {
   for(let i = 1; i < 6; i ++) {
     let color = generateRandomColor();
     $(`.color${i}`).css('background-color', color);
-    $(`.color-container .color${i}`).text(color);
+    $(`.color-container .color${i} .color-text`).text(color);
     console.log(color);
   }
 }

@@ -1,16 +1,23 @@
+@import './variables.scss';
+
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Exo 2', 'sans-serif';
 }
 
 header {
   height: 10vh;
-  padding: 3vh;
+  background-color: $secondary-two;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
-  color: green;
-  text-align: center;
+  color: $font-one;
+  display: inline-block;
+ font-family: 'Audiowide', cursive;
 }
 
 main {
@@ -18,58 +25,118 @@ main {
   display: grid;
   grid-template-columns: 400px auto;
   grid-template-rows: 100%;
-  grid-template-areas: "user-palettes main-palette"
+  grid-template-areas: "user-palettes main-palette";
+  background-color: $secondary-one;
 }
 
 .user-palettes, .main-palette {
-  padding: 10px;
+  margin: 20px;
 }
 
 .user-palettes {
   grid-area: user-palettes;
+  overflow: scroll;
+  margin-right: 0;
 }
 
+.user-palettes::-webkit-scrollbar {
+    display: none;
+}
+
+
 button {
-  margin: auto;
-  height: 40px;
+  background-color: $font-one;
+  border-radius: $border-radius;
+}
+
+button:hover {
+  background-color: $secondary-one;
+  color: $font-one;
+}
+
+input {
+  border-radius: $border-radius;
+  padding-left: 5px;
+  border: none;
+}
+
+.create-project-controls, .palette-controls {
+  background-color: $secondary-two;
+}
+
+.create-project-controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+}
+
+.create-project-input, .create-project-button {
+  height: 60%;
+}
+
+.create-project-input {
+  width: 65%;
+}
+
+.create-project-button {
+  width: 25%;
+}
+
+.project {
+  background-color: $main-two;
 }
 
 #saved-palette-template {
+  width: 100%;
+  height: 80px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.saved-palette-colors {
   position: relative;
-  width: 90%;
-  height: 60px;
-  margin: auto;
+  width: 80%;
+  margin-left: auto;
   display: flex;
 }
 
 .palette-title {
-  width: 80%;
-  text-align: center;
   margin: auto;
+  padding: 10px;
   position: relative;
   z-index: 2;
+  display: inline-block;
+  background-color: rgba(65, 65, 65, .85);
+  color: $font-one;
+  border-radius: $border-radius;
 }
 
 .small-color-container {
   display: flex;
   position: absolute;
-  top: 0;
-  width: 85%;
-  z-index: 1
+  top: 10px;
+  width: 100%;
+  z-index: 1;
+  height: 60px;
+  margin: auto;
 }
 
 .small-palette-color {
   flex-grow: 1;
   width: 20%;
-  height: 50px;
+  height: 100%;
 }
 
 .remove-palette-button {
-  width: 15%;
-  height: 50px;
-  margin: 0;
+  width: 10%;
+  height: 30px;
+  margin: auto;
   padding: 0;
-
+  border: none;
+  background-color: $secondary-one;
+  color: $main-two;
 }
 
 .main-palette {
@@ -83,18 +150,52 @@ button {
 .color-container {
   height: 75%;
   width: 100%;
+  // box-shadow: $shadow;
 }
 
 .color {
   height: 20%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-text {
+  padding: 10px;
+  display: inline-block;
+  background-color: rgba(65, 65, 65, .80);
+  color: $font-one;
+  border-radius: $border-radius;
 }
 
 .palette-controls {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  height: 25%;
+  width: 100%;
+}
+
+.roll-colors-button {
+  height: 35%;
+  width: 50%;
+}
+
+.create-palette-controls {
+  height: 25%;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-dropdown, .palette-name, .save-palette-button {
+  height: 100%;
+}
+
+.palette-name {
+  width: 45%;
 }
 
 .color1 {
@@ -115,4 +216,25 @@ button {
 
 .color5 {
   background-color: blue;
+}
+
+.top-border {
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+}
+
+.bottom-border {
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+}
+
+
+.small-palette-left {
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+}
+
+.small-palette-right {
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
 }

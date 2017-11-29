@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Exo+2:600" rel="stylesheet">
     <title></title>
   </head>
   <body>
@@ -10,38 +11,50 @@
       <h1>Palette Picker</h1>
     </header>
     <main>
-      <section class="user-palettes">
-        <div class="create-project-controls">
-          <input type="text" placeholder="New Project Name">
+      <section class="user-palettes top-border bottom-border">
+        <div class="create-project-controls top-border">
+          <input class="create-project-input" type="text" placeholder="New Project Name">
           <button class="create-project-button">Create Project</button>
         </div>
         <div id="project-template" class="project">
           <h3 class="project-name">Project Name</h3>
           <div id="saved-palette-template">
-            <div class="palette-title">Palette 1</div>
-            <div class="small-color-container">
-              <div class="color1 small-palette-color"></div>
-              <div class="color2 small-palette-color"></div>
-              <div class="color3 small-palette-color"></div>
-              <div class="color4 small-palette-color"></div>
-              <div class="color5 small-palette-color"></div>
+            <div class="saved-palette-colors">
+              <div class="palette-title">Palette 1</div>
+              <div class="small-color-container">
+                <div class="color1 small-palette-color small-palette-left"></div>
+                <div class="color2 small-palette-color"></div>
+                <div class="color3 small-palette-color"></div>
+                <div class="color4 small-palette-color"></div>
+                <div class="color5 small-palette-color small-palette-right"></div>
+              </div>
             </div>
             <button class="remove-palette-button">X</button>
           </div>
         </div>
       </section>
       <section class="main-palette">
-        <div class="color-container">
-          <div class="color1 color">Red</div>
-          <div class="color2 color">Orange</div>
-          <div class="color3 color">Yellow</div>
-          <div class="color4 color">Green</div>
-          <div class="color5 color">Blue</div>
+        <div class="color-container top-border">
+          <div class="color1 color top-border">
+            <span class="color-text">Red</span>
+          </div>
+          <div class="color2 color">
+            <span class="color-text">Orange</span>
+          </div>
+          <div class="color3 color">
+            <span class="color-text">Yellow</span>
+          </div>
+          <div class="color4 color">
+            <span class="color-text">Green</span>
+          </div>
+          <div class="color5 color">
+            <span class="color-text">Blue</span>
+          </div>
         </div>
-        <div class="palette-controls">
+        <div class="palette-controls bottom-border">
           <button class="roll-colors-button">Roll Colors</button>
           <div class="create-palette-controls">
-            <select name="projects" id="project-dropdown">
+            <select name="projects" class="project-dropdown">
               <option value="">-Select Project-</option>
             </select>
             <input type="text" class="palette-name" placeholder="New Palette Name">
