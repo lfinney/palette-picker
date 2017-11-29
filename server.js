@@ -5,38 +5,13 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 
+
+
 app.use(express.static(__dirname + '/public'));
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 });
-
-app.locals.projects = [
-  {
-    id: 'a1',
-    title: 'Project 1'
-  },
-  {
-    id: 'b2',
-    title: 'Project 2'
-  }
-];
-
-app.locals.palettes = [
-  {
-    id: 'a1',
-    title: 'Cool Colors',
-    colors: [
-      '#123456',
-      '#654321',
-      '#fdacbe',
-      '#ebcadf',
-      '#123abc',
-      '#def456'
-    ],
-    projectId: 'a1'
-  }
-]
 
 app.get('/api/v1/projects', (request, response) => {
   response.status(200).json(app.locals.projects)
