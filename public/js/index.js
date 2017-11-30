@@ -1,3 +1,20 @@
+const pageLoad = () => {
+  fetchProjects();
+  rollColors();
+};
+
+const fetchProjects = () => {
+  fetch('/api/v1/projects')
+    .then( response => response.json())
+    .then( fetchedProjects => {
+      fetchPalettes(fetchedProjects);
+    })
+    .catch( error => console.log(error))
+};
+
+const fetchPalettes = (projects) => {
+
+}
 
 const createProject = () => {
   const template = $('#project-template').clone();
@@ -28,6 +45,8 @@ const rollColors = () => {
   }
 }
 
+
+$(document).ready(pageLoad);
 $('.roll-colors-button').on('click', rollColors);
 $('.create-project-button').on('click', createProject);
 $('.save-palette-button').on('click', createPalette);
