@@ -43,7 +43,7 @@ const appendProject = (projects) => {
 const appendPalettes = (palettes) => {
   palettes.forEach(palette => {
     $(`.project-${palette.projectId}`).append(`
-      <div id="saved-palette-template">
+      <div id="palette-${palette.id}"class="palette" data-id="${palette.id}">
         <div class="saved-palette-colors">
           <div class="palette-title" contenteditable="true">${palette.name}</div>
           <div class="small-color-container">
@@ -91,7 +91,7 @@ const postProject =() => {
   .catch(error => console.log(error))
 }
 
-const postPalette =() => {
+const postPalette = () => {
   const newPalette = {
     name: $('.palette-name').val(),
     color1: $('.color1').css('background-color'),
@@ -114,7 +114,20 @@ const postPalette =() => {
   .catch(error => console.log(error))
 }
 
+const deletePalette = (eventTarget) => {
+  const paletteId = $(eventTarget).closest('.palette').attr('data-id');
+
+  fetch(`/api/v1/palettes/${paletteId}`, {
+    method: 'DELETE'
+  })
+  // .then( () => $(`#project-${paletteId}`).remove())
+  .catch(error => console.log(error))
+
+  $(eventTarget).closest('.palette').remove();
+}
+
 $(document).ready(pageLoad);
 $('.roll-colors-button').on('click', rollColors);
 $('.save-palette-button').on('click', postPalette);
 $('.create-project-button').on('click', postProject)
+$('.user-palettes').on('click', '.remove-palette-button', (event) => deletePalette(event.target))
