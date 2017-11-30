@@ -1,0 +1,17 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+      "comma-dangle": ["error", "never"],
+      "no-plusplus": 0,
+      "no-path-concat": 0,
+      "prefer-template": 0,
+      "arrow-body-style": 0,
+      "no-restricted-syntax": 0,
+      "prefer-const": 0,
+      "consistent-return": 0
+    },
+    "env": {
+      "browser": true,
+      "jquery": true
+    }
+}

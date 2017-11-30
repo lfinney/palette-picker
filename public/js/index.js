@@ -1,47 +1,21 @@
-const pageLoad = () => {
-  fetchProjects();
-  rollColors();
-};
-
-const fetchProjects = () => {
-  fetch('/api/v1/projects')
-    .then(response => response.json())
-    .then(fetchedProjects => {
-      appendProjectSelector(fetchedProjects);
-      appendProject(fetchedProjects);
-      fetchPalettes(fetchedProjects);
-    })
-    .catch(error => console.log(error))
-};
-
-const fetchPalettes = (projects) => {
-  projects.forEach(project => {
-    fetch(`/api/v1/projects/${project.id}/palettes`)
-    .then(response => response.json())
-    .then(palettes => appendPalettes(palettes))
-  });
-};
-
 const appendProjectSelector = (projects) => {
-  projects.forEach(project => {
-    $('.project-dropdown').append(
-      `<option value="${project.id}">${project.name}</option>`
-    );
+  projects.forEach((project) => {
+    $('.project-dropdown')
+      .append(`<option value="${project.id}">${project.name}</option>`);
   });
 };
 
 const appendProject = (projects) => {
-  projects.forEach(project => {
-    $('.user-palettes').append(
-      `<div id="project-template" class="project project-${project.id}">
+  projects.forEach((project) => {
+    $('.user-palettes')
+      .append(`<div id="project-template" class="project project-${project.id}">
         <h3 class="project-name" contenteditable="true">${project.name}</h3>
-      </div>`
-    );
+      </div>`);
   });
 };
 
 const appendPalettes = (palettes) => {
-  palettes.forEach(palette => {
+  palettes.forEach((palette) => {
     $(`.project-${palette.projectId}`).append(`
       <div id="palette-${palette.id}"class="palette" data-id="${palette.id}">
         <div class="saved-palette-colors">
@@ -60,6 +34,14 @@ const appendPalettes = (palettes) => {
   });
 };
 
+const fetchPalettes = (projects) => {
+  projects.forEach((project) => {
+    fetch(`/api/v1/projects/${project.id}/palettes`)
+      .then(response => response.json())
+      .then(palettes => appendPalettes(palettes));
+  });
+};
+
 const generateRandomColor = () => {
   const letters = '0123456789ABCDEF';
   let color = '#';
@@ -70,26 +52,27 @@ const generateRandomColor = () => {
 };
 
 const rollColors = () => {
-  for(let i = 1; i < 6; i ++) {
-    let color = generateRandomColor();
+  for (let i = 1; i < 6; i++) {
+    const color = generateRandomColor();
     $(`.color${i}`).css('background-color', color);
     $(`.color-container .color${i} .color-text`).text(color);
   }
-}
+};
 
-const postProject =() => {
+const postProject = () => {
   const projectTitle = $('.create-project-input').val();
+
   fetch('/api/v1/projects', {
     method: 'POST',
-    body: JSON.stringify({name: projectTitle}),
+    body: JSON.stringify({ name: projectTitle }),
     headers: {
       'content-type': 'application/json'
     }
   })
-  .then(response => response.json())
-  .then(project => appendProject(project))
-  .catch(error => console.log(error))
-}
+    .then(response => response.json())
+    .then(project => appendProject(project))
+    .catch(error => console.log(error));
+};
 
 const postPalette = () => {
   const newPalette = {
@@ -100,7 +83,7 @@ const postPalette = () => {
     color4: $('.color4').css('background-color'),
     color5: $('.color5').css('background-color')
   };
-  const projectId = $('.project-dropdown').find( "option:selected").prop("value")
+  const projectId = $('.project-dropdown').find('option:selected').prop('value');
 
   fetch(`/api/v1/projects/${projectId}/palettes`, {
     method: 'POST',
@@ -109,10 +92,10 @@ const postPalette = () => {
       'content-type': 'application/json'
     }
   })
-  .then(response => response.json())
-  .then(palette => appendPalettes(palette))
-  .catch(error => console.log(error))
-}
+    .then(response => response.json())
+    .then(palette => appendPalettes(palette))
+    .catch(error => console.log(error));
+};
 
 const deletePalette = (eventTarget) => {
   const paletteId = $(eventTarget).closest('.palette').attr('data-id');
@@ -120,14 +103,31 @@ const deletePalette = (eventTarget) => {
   fetch(`/api/v1/palettes/${paletteId}`, {
     method: 'DELETE'
   })
-  // .then( () => $(`#project-${paletteId}`).remove())
-  .catch(error => console.log(error))
+    .catch(error => console.log(error));
 
   $(eventTarget).closest('.palette').remove();
-}
+};
+
+const fetchProjects = () => {
+  fetch('/api/v1/projects')
+    .then(response => response.json())
+    .then((fetchedProjects) => {
+      appendProjectSelector(fetchedProjects);
+      appendProject(fetchedProjects);
+      fetchPalettes(fetchedProjects);
+    })
+    .catch(error => console.log(error));
+};
+
+
+const pageLoad = () => {
+  fetchProjects();
+  rollColors();
+};
+
 
 $(document).ready(pageLoad);
 $('.roll-colors-button').on('click', rollColors);
 $('.save-palette-button').on('click', postPalette);
-$('.create-project-button').on('click', postProject)
-$('.user-palettes').on('click', '.remove-palette-button', (event) => deletePalette(event.target))
+$('.create-project-button').on('click', postProject);
+$('.user-palettes').on('click', '.remove-palette-button', (event => deletePalette(event.target)));
