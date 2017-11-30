@@ -88,9 +88,9 @@ app.post('/api/v1/projects', (request, response) => {
     }
   };
 
-  database('projects').insert(project, 'id')
-    .then(projectId => {
-      return response.status(201).json({ id: projectId[0] })
+  database('projects').insert(project, '*')
+    .then(project => {
+      return response.status(201).json(project)
     })
     .catch(error => {
       return response.status(500).json({ error });
@@ -111,9 +111,9 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
 
   palette = Object.assign({}, palette, { projectId: projectId });
 
-  database('palettes').insert(palette, 'id')
-    .then(paletteId => {
-      return response.status(201).json({ id: paletteId[0] });
+  database('palettes').insert(palette, '*')
+    .then(palette => {
+      return response.status(201).json(palette);
     })
     .catch(error => {
       return response.status(500).json({ error });
