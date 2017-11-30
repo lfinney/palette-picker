@@ -116,9 +116,25 @@ app.post('/api/v1/projects/:id/palettes', (request, response) => {
       return response.status(201).json({ id: paletteId[0] });
     })
     .catch(error => {
-      return resonse.status(500).json({ error });
+      return response.status(500).json({ error });
     });
 });
+
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('palettes').where('id', id).del()
+    .then(confirmation => {
+      if (!confirmation) {
+        return response.status(422).json({ error: 'That resource does not appear to exist to be deleted.'})
+      } else {1
+        return response.sendStatus(204).json({ message: 'Palette successfully deleted'});
+      }
+    })
+    .catch( error => {
+      return response.status(500).json({ error });
+    })
+})
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
