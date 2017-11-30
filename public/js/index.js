@@ -5,26 +5,50 @@ const pageLoad = () => {
 
 const fetchProjects = () => {
   fetch('/api/v1/projects')
-    .then( response => response.json())
-    .then( fetchedProjects => {
+    .then(response => response.json())
+    .then(fetchedProjects => {
+      appendProject(fetchedProjects);
       fetchPalettes(fetchedProjects);
     })
-    .catch( error => console.log(error))
+    .catch(error => console.log(error))
 };
 
 const fetchPalettes = (projects) => {
-
+  projects.forEach( project => {
+    fetch(`/api/v1/projects/${project.id}/palettes`)
+    .then(response => response.json())
+    .then(palettes => appendPalettes(palettes))
+  });
 }
 
-const createProject = () => {
-  const template = $('#project-template').clone();
-  console.log(template);
-  $('.user-palettes').append(template)
+const appendProject = (projects) => {
+  projects.forEach( project => {
+    $('.user-palettes').append(
+      `<div id="project-template" class="project project-${project.id}">
+        <h3 class="project-name" contenteditable="true">${project.name}</h3>
+      </div>`
+    )
+  });
 };
 
-const createPalette = () => {
-  const template = $('#saved-palette-template').clone();
-  $('.project').append(template)
+const appendPalettes = (palettes) => {
+  palettes.forEach( palette => {
+    $(`.project-${palette.projectId}`).append(`
+      <div id="saved-palette-template">
+        <div class="saved-palette-colors">
+          <div class="palette-title" contenteditable="true">${palette.name}</div>
+          <div class="small-color-container">
+            <div class="small-palette-color small-palette-left" style="background-color: ${palette.color1}"></div>
+            <div class="small-palette-color" style="background-color: ${palette.color2}"></div>
+            <div class="small-palette-color" style="background-color: ${palette.color3}"></div>
+            <div class="small-palette-color" style="background-color: ${palette.color4}"></div>
+            <div class="small-palette-color small-palette-right" style="background-color: ${palette.color5}"></div>
+          </div>
+        </div>
+        <button class="remove-palette-button">X</button>
+      </div>
+    `);
+  });
 };
 
 const generateRandomColor = () => {
@@ -41,12 +65,11 @@ const rollColors = () => {
     let color = generateRandomColor();
     $(`.color${i}`).css('background-color', color);
     $(`.color-container .color${i} .color-text`).text(color);
-    console.log(color);
   }
 }
 
 
 $(document).ready(pageLoad);
 $('.roll-colors-button').on('click', rollColors);
-$('.create-project-button').on('click', createProject);
-$('.save-palette-button').on('click', createPalette);
+$('.create-project-button').on('click', appendProject);
+$('.save-palette-button').on('click', appendPalettes);
