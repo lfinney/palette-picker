@@ -15,23 +15,25 @@ const appendProject = (projects) => {
 };
 
 const appendPalettes = (palettes) => {
-  palettes.forEach((palette) => {
-    $(`.project-${palette.projectId}`).append(`
-      <div id="palette-${palette.id}"class="palette" data-id="${palette.id}">
-        <div class="saved-palette-colors">
-          <div class="palette-title" contenteditable="true">${palette.name}</div>
-          <div class="small-color-container">
-            <div class="small-palette-color small-palette-left" style="background-color: ${palette.color1}"></div>
-            <div class="small-palette-color" style="background-color: ${palette.color2}"></div>
-            <div class="small-palette-color" style="background-color: ${palette.color3}"></div>
-            <div class="small-palette-color" style="background-color: ${palette.color4}"></div>
-            <div class="small-palette-color small-palette-right" style="background-color: ${palette.color5}"></div>
+  if (palettes.length) {
+    palettes.forEach((palette) => {
+      $(`.project-${palette.projectId}`).append(`
+        <div id="palette-${palette.id}" class="palette" data-id="${palette.id}">
+          <div class="saved-palette-colors">
+            <div class="palette-title" contenteditable="true">${palette.name}</div>
+            <div class="small-color-container">
+              <div class="small-palette-color sc1 small-palette-left" style="background-color: ${palette.color1}"></div>
+              <div class="small-palette-color sc2" style="background-color: ${palette.color2}"></div>
+              <div class="small-palette-color sc3" style="background-color: ${palette.color3}"></div>
+              <div class="small-palette-color sc4" style="background-color: ${palette.color4}"></div>
+              <div class="small-palette-color sc5 small-palette-right" style="background-color: ${palette.color5}"></div>
+            </div>
           </div>
+          <button class="remove-palette-button">X</button>
         </div>
-        <button class="remove-palette-button">X</button>
-      </div>
-    `);
-  });
+      `);
+    });
+  }
 };
 
 const fetchPalettes = (projects) => {
@@ -54,30 +56,14 @@ const generateRandomColor = () => {
 const rollColors = () => {
   for (let i = 1; i < 6; i++) {
     const color = generateRandomColor();
-    if(!$(`.color${i}`).hasClass('locked')) {
+    if (!$(`.color${i}`).hasClass('locked')) {
       $(`.color${i}`).css('background-color', color);
       $(`.color-container .color${i} .color-text`).text(color);
     }
   }
 };
 
-const checkProjectName = () => {
-  const projectTitle = $('.create-project-input').val();
-
-  fetch(`/api/v1/projects/`)
-    .then(response => response.json())
-    .then(projects => {
-      const match = projects.find(project => projectTitle === project.name)
-      if(!match) {
-        postProject(projectTitle)
-      }
-      alert('You must use a unique project name.')
-    })
-}
-
 const postProject = (projectTitle) => {
-  const projectTitle = $('.create-project-input').val();
-
   fetch('/api/v1/projects', {
     method: 'POST',
     body: JSON.stringify({ name: projectTitle }),
@@ -88,6 +74,20 @@ const postProject = (projectTitle) => {
     .then(response => response.json())
     .then(project => appendProject(project))
     .catch(error => console.log(error));
+};
+
+const checkProjectName = () => {
+  const projectTitle = $('.create-project-input').val();
+
+  fetch('/api/v1/projects/')
+    .then(response => response.json())
+    .then((projects) => {
+      const match = projects.find(project => projectTitle === project.name);
+      if (!match) {
+        postProject(projectTitle);
+      }
+      alert('You must use a unique project name.');
+    });
 };
 
 const postPalette = () => {
@@ -142,7 +142,7 @@ const pageLoad = () => {
 };
 
 const toggleLock = (target) => {
-  const lock = $(target)
+  const lock = $(target);
 
   if (lock.attr('src') === './assets/unlock.svg') {
     lock.attr('src', './assets/lock.svg');
@@ -151,11 +151,21 @@ const toggleLock = (target) => {
     lock.attr('src', './assets/unlock.svg');
     lock.closest('.color').removeClass('locked');
   }
-}
+};
+
+const loadMainPalette = (eventTarget) => {
+  const palette = eventTarget.closest('.palette');
+
+  for (let i = 1; i < 6; i++) {
+    const smallColor = $(palette).find(`.sc${i}`).css('background-color');
+    $(`.color${i}`).css('background-color', smallColor);
+  }
+};
 
 $(document).ready(pageLoad);
 $('.roll-colors-button').on('click', rollColors);
 $('.save-palette-button').on('click', postPalette);
 $('.create-project-button').on('click', checkProjectName);
 $('.user-palettes').on('click', '.remove-palette-button', (event => deletePalette(event.target)));
-$('.main-palette').on('click', '.lock', (event) => toggleLock(event.target))
+$('.main-palette').on('click', '.lock', event => toggleLock(event.target));
+$('.user-palettes').on('click', '.palette', event => loadMainPalette(event.target));
