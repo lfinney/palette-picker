@@ -85,8 +85,10 @@ const checkProjectName = () => {
       const match = projects.find(project => projectTitle === project.name);
       if (!match) {
         postProject(projectTitle);
+        $('.create-project-input').val('');
+      } else {
+        alert('You must use a unique project name.');
       }
-      alert('You must use a unique project name.');
     });
 };
 
@@ -111,6 +113,7 @@ const postPalette = () => {
     .then(response => response.json())
     .then(palette => appendPalettes(palette))
     .catch(error => console.log(error));
+  $('.palette-name').val('');
 };
 
 const deletePalette = (eventTarget) => {
