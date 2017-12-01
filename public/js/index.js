@@ -162,6 +162,7 @@ const loadMainPalette = (eventTarget) => {
   for (let i = 1; i < 6; i++) {
     const smallColor = $(palette).find(`.sc${i}`).css('background-color');
     $(`.color${i}`).css('background-color', smallColor);
+    $(`.color-container .color${i} .color-text`).text(smallColor);
   }
 };
 
