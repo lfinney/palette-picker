@@ -15,12 +15,13 @@ module.exports = {
   },
   test: {
     client: 'pg',
-    connections: process.env.DATABASE_URL || 'postgres://localhost/palette_picker_test',
+    connection: process.env.DATABASE_URL || 'postgres://localhost/palette_picker_test',
     migrations: {
       directory: './db/migrations'
     },
     seeds: {
-      directory: './db/seeds/dev'
-    }
+      directory: './db/seeds/test'
+    },
+    useNullAsDefault: true
   }
 };

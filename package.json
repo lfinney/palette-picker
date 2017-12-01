@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha",
+    "test": "NODE_ENV=test mocha --exit",
     "css": "sass --watch public/css/styles.scss:public/css/styles.css",
     "lint": "./node_modules/.bin/eslint ./"
   },

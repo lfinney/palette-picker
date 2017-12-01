@@ -126,7 +126,7 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
       if (!confirmation) {
         return response.status(422).json({ error: 'That resource does not appear to exist to be deleted.' });
       }
-      return response.sendStatus(204).json({ message: 'Palette successfully deleted' });
+      return response.sendStatus(204);
     })
     .catch((error) => {
       return response.status(500).json({ error });
