@@ -36,6 +36,7 @@ main {
 
 .user-palettes {
   grid-area: user-palettes;
+  height: fit-content;
   overflow: scroll;
   margin-right: 0;
 }
