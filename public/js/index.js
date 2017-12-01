@@ -1,15 +1,14 @@
-const appendProjectSelector = (projects) => {
-  projects.forEach((project) => {
-    $('.project-dropdown')
-      .append(`<option value="${project.id}">${project.name}</option>`);
-  });
+const appendProjectSelector = (project) => {
+  $('.project-dropdown')
+    .append(`<option value="${project.id}">${project.name}</option>`);
 };
 
 const appendProject = (projects) => {
   projects.forEach((project) => {
+    appendProjectSelector(project);
     $('.user-palettes')
       .append(`<div id="project-template" class="project project-${project.id}">
-        <h3 class="project-name" contenteditable="true">${project.name}</h3>
+        <h3 class="project-name">${project.name}</h3>
       </div>`);
   });
 };
@@ -20,7 +19,7 @@ const appendPalettes = (palettes) => {
       $(`.project-${palette.projectId}`).append(`
         <div id="palette-${palette.id}" class="palette" data-id="${palette.id}">
           <div class="saved-palette-colors">
-            <div class="palette-title" contenteditable="true">${palette.name}</div>
+            <div class="palette-title">${palette.name}</div>
             <div class="small-color-container">
               <div class="small-palette-color sc1 small-palette-left" style="background-color: ${palette.color1}"></div>
               <div class="small-palette-color sc2" style="background-color: ${palette.color2}"></div>
@@ -131,7 +130,6 @@ const fetchProjects = () => {
   fetch('/api/v1/projects')
     .then(response => response.json())
     .then((fetchedProjects) => {
-      appendProjectSelector(fetchedProjects);
       appendProject(fetchedProjects);
       fetchPalettes(fetchedProjects);
     })
