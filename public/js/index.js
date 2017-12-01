@@ -54,8 +54,10 @@ const generateRandomColor = () => {
 const rollColors = () => {
   for (let i = 1; i < 6; i++) {
     const color = generateRandomColor();
-    $(`.color${i}`).css('background-color', color);
-    $(`.color-container .color${i} .color-text`).text(color);
+    if(!$(`.color${i}`).hasClass('locked')) {
+      $(`.color${i}`).css('background-color', color);
+      $(`.color-container .color${i} .color-text`).text(color);
+    }
   }
 };
 
@@ -125,9 +127,21 @@ const pageLoad = () => {
   rollColors();
 };
 
+const toggleLock = (target) => {
+  const lock = $(target)
+
+  if (lock.attr('src') === './assets/unlock.svg') {
+    lock.attr('src', './assets/lock.svg');
+    lock.closest('.color').addClass('locked');
+  } else {
+    lock.attr('src', './assets/unlock.svg');
+    lock.closest('.color').removeClass('locked');
+  }
+}
 
 $(document).ready(pageLoad);
 $('.roll-colors-button').on('click', rollColors);
 $('.save-palette-button').on('click', postPalette);
 $('.create-project-button').on('click', postProject);
 $('.user-palettes').on('click', '.remove-palette-button', (event => deletePalette(event.target)));
+$('.main-palette').on('click', '.lock', (event) => toggleLock(event.target))
