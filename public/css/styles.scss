@@ -87,7 +87,7 @@ input {
   background-color: $main-two;
 }
 
-#saved-palette-template {
+.palette {
   width: 100%;
   height: 80px;
   margin: 10px auto;
@@ -135,8 +135,6 @@ input {
   margin: auto;
   padding: 0;
   border: none;
-  background-color: $secondary-one;
-  color: $main-two;
 }
 
 .main-palette {
@@ -194,8 +192,16 @@ input {
   height: 100%;
 }
 
+.project-dropdown {
+  width: 20%;
+}
+
 .palette-name {
   width: 45%;
+}
+
+.save-palette-button {
+  width: 20%;
 }
 
 .color1 {

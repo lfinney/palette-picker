@@ -68,7 +68,7 @@ input {
 .project {
   background-color: #747474; }
 
-#saved-palette-template {
+.palette {
   width: 100%;
   height: 80px;
   margin: 10px auto;
@@ -110,9 +110,7 @@ input {
   height: 30px;
   margin: auto;
   padding: 0;
-  border: none;
-  background-color: #212121;
-  color: #747474; }
+  border: none; }
 
 .main-palette {
   grid-area: main-palette;
@@ -160,8 +158,14 @@ input {
 .project-dropdown, .palette-name, .save-palette-button {
   height: 100%; }
 
+.project-dropdown {
+  width: 20%; }
+
 .palette-name {
   width: 45%; }
+
+.save-palette-button {
+  width: 20%; }
 
 .color1 {
   background-color: red; }
