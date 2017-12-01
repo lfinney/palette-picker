@@ -20,24 +20,23 @@ describe('Client Routes', () => {
         response.res.text.includes('Palette Picker');
       })
       .catch((error) => {
-        console.log(error);
+        throw error;
       });
   });
 
   it('should return a 404 for a route that does not exist', () => {
     return chai.request(server)
-    .get('/whodis')
+      .get('/whodis')
       .then((response) => {
         response.should.have.status(404);
       })
       .catch((error) => {
-        console.log(error);
+        throw error;
       });
   });
 });
 
 describe('API Routes', () => {
-
   before((done) => {
     database.migrate.latest()
       .then(() => done())
