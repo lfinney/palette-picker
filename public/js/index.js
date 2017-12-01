@@ -61,7 +61,21 @@ const rollColors = () => {
   }
 };
 
-const postProject = () => {
+const checkProjectName = () => {
+  const projectTitle = $('.create-project-input').val();
+
+  fetch(`/api/v1/projects/`)
+    .then(response => response.json())
+    .then(projects => {
+      const match = projects.find(project => projectTitle === project.name)
+      if(!match) {
+        postProject(projectTitle)
+      }
+      alert('You must use a unique project name.')
+    })
+}
+
+const postProject = (projectTitle) => {
   const projectTitle = $('.create-project-input').val();
 
   fetch('/api/v1/projects', {
@@ -142,6 +156,6 @@ const toggleLock = (target) => {
 $(document).ready(pageLoad);
 $('.roll-colors-button').on('click', rollColors);
 $('.save-palette-button').on('click', postPalette);
-$('.create-project-button').on('click', postProject);
+$('.create-project-button').on('click', checkProjectName);
 $('.user-palettes').on('click', '.remove-palette-button', (event => deletePalette(event.target)));
 $('.main-palette').on('click', '.lock', (event) => toggleLock(event.target))
