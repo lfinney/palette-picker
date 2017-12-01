@@ -31,6 +31,7 @@ main {
 
 .user-palettes, .main-palette {
   margin: 20px;
+  box-shadow: $shadow;
 }
 
 .user-palettes {
@@ -73,6 +74,8 @@ input {
 
 .create-project-input, .create-project-button {
   height: 60%;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
 }
 
 .create-project-input {
@@ -89,6 +92,10 @@ input {
 
 .project-name {
   padding-bottom: 5px;
+  padding-left: 15px;
+  padding-top: 5px;
+  border-top: 2px solid $secondary-one;
+  margin-top: 2px;
 }
 
 .palette {
@@ -125,6 +132,8 @@ input {
   z-index: 1;
   height: 60px;
   margin: auto;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
 }
 
 .small-palette-color {
@@ -139,6 +148,9 @@ input {
   margin: auto;
   padding: 0;
   border: none;
+  margin: auto;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
 }
 
 .main-palette {
@@ -192,17 +204,22 @@ input {
 .roll-colors-button {
   height: 35%;
   width: 50%;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  font-size: 1em;
 }
 
 .create-palette-controls {
   height: 25%;
-  width: 50%;
+  width: 65%;
   display: flex;
   justify-content: space-between;
 }
 
 .project-dropdown, .palette-name, .save-palette-button {
   height: 100%;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
 }
 
 .project-dropdown {
