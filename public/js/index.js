@@ -15,23 +15,25 @@ const appendProject = (projects) => {
 };
 
 const appendPalettes = (palettes) => {
-  palettes.forEach((palette) => {
-    $(`.project-${palette.projectId}`).append(`
-      <div id="palette-${palette.id}"class="palette" data-id="${palette.id}">
-        <div class="saved-palette-colors">
-          <div class="palette-title" contenteditable="true">${palette.name}</div>
-          <div class="small-color-container">
-            <div class="small-palette-color small-palette-left" style="background-color: ${palette.color1}"></div>
-            <div class="small-palette-color" style="background-color: ${palette.color2}"></div>
-            <div class="small-palette-color" style="background-color: ${palette.color3}"></div>
-            <div class="small-palette-color" style="background-color: ${palette.color4}"></div>
-            <div class="small-palette-color small-palette-right" style="background-color: ${palette.color5}"></div>
+  if(palettes.length) {
+    palettes.forEach((palette) => {
+      $(`.project-${palette.projectId}`).append(`
+        <div id="palette-${palette.id}"class="palette" data-id="${palette.id}">
+          <div class="saved-palette-colors">
+            <div class="palette-title" contenteditable="true">${palette.name}</div>
+            <div class="small-color-container">
+              <div class="small-palette-color small-palette-left" style="background-color: ${palette.color1}"></div>
+              <div class="small-palette-color" style="background-color: ${palette.color2}"></div>
+              <div class="small-palette-color" style="background-color: ${palette.color3}"></div>
+              <div class="small-palette-color" style="background-color: ${palette.color4}"></div>
+              <div class="small-palette-color small-palette-right" style="background-color: ${palette.color5}"></div>
+            </div>
           </div>
+          <button class="remove-palette-button">X</button>
         </div>
-        <button class="remove-palette-button">X</button>
-      </div>
-    `);
-  });
+      `);
+    });
+  }
 };
 
 const fetchPalettes = (projects) => {
@@ -61,23 +63,7 @@ const rollColors = () => {
   }
 };
 
-const checkProjectName = () => {
-  const projectTitle = $('.create-project-input').val();
-
-  fetch(`/api/v1/projects/`)
-    .then(response => response.json())
-    .then(projects => {
-      const match = projects.find(project => projectTitle === project.name)
-      if(!match) {
-        postProject(projectTitle)
-      }
-      alert('You must use a unique project name.')
-    })
-}
-
 const postProject = (projectTitle) => {
-  const projectTitle = $('.create-project-input').val();
-
   fetch('/api/v1/projects', {
     method: 'POST',
     body: JSON.stringify({ name: projectTitle }),
@@ -88,6 +74,20 @@ const postProject = (projectTitle) => {
     .then(response => response.json())
     .then(project => appendProject(project))
     .catch(error => console.log(error));
+};
+
+const checkProjectName = () => {
+  const projectTitle = $('.create-project-input').val();
+
+  fetch('/api/v1/projects/')
+    .then(response => response.json())
+    .then((projects) => {
+      const match = projects.find(project => projectTitle === project.name);
+      if (!match) {
+        postProject(projectTitle);
+      }
+      alert('You must use a unique project name.');
+    });
 };
 
 const postPalette = () => {
