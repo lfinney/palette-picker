@@ -1,16 +1,14 @@
-const appendProjectSelectors = (projects) => {
-  $('.project-dropdown').append('<option></option>');
-  projects.forEach((project) => {
-    $('.project-dropdown')
-      .append(`<option value="${project.id}">${project.name}</option>`);
-  });
+const appendProjectSelector = (project) => {
+  $('.project-dropdown')
+    .append(`<option value="${project.id}">${project.name}</option>`);
 };
 
 const appendProject = (projects) => {
   projects.forEach((project) => {
+    appendProjectSelector(project);
     $('.user-palettes')
       .append(`<div id="project-template" class="project project-${project.id}">
-        <h3 class="project-name" contenteditable="true">${project.name}</h3>
+        <h3 class="project-name">${project.name}</h3>
       </div>`);
   });
 };
@@ -73,7 +71,7 @@ const postProject = (projectTitle) => {
     }
   })
     .then(response => response.json())
-    .then(project => fetchProjects())
+    .then(project => appendProject(project))
     .catch(error => console.log(error));
 };
 
@@ -132,7 +130,6 @@ const fetchProjects = () => {
   fetch('/api/v1/projects')
     .then(response => response.json())
     .then((fetchedProjects) => {
-      appendProjectSelectors(fetchedProjects);
       appendProject(fetchedProjects);
       fetchPalettes(fetchedProjects);
     })
