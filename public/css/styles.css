@@ -16,7 +16,8 @@ h1 {
   font-family: 'Audiowide', cursive; }
 
 main {
-  height: 90vh;
+  height: auto;
+  max-height: 90vh;
   display: grid;
   grid-template-columns: 400px auto;
   grid-template-rows: 100%;
