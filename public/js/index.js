@@ -176,7 +176,7 @@ const toggleLock = (target) => {
 };
 
 const loadMainPalette = (eventTarget) => {
-  const palette = eventTarget.closest('.palette');
+  const palette = eventTarget.closest('.saved-palette-colors');
 
   for (let i = 1; i < 6; i++) {
     const smallColor = $(palette).find(`.sc${i}`).css('background-color');
@@ -191,4 +191,4 @@ $('.save-palette-button').on('click', postPalette);
 $('.create-project-button').on('click', checkProjectName);
 $('.user-palettes').on('click', '.remove-palette-button', (event => deletePalette(event.target)));
 $('.main-palette').on('click', '.lock', event => toggleLock(event.target));
-$('.user-palettes').on('click', '.palette', event => loadMainPalette(event.target));
+$('.user-palettes').on('click', '.saved-palette-colors', event => loadMainPalette(event.target));
