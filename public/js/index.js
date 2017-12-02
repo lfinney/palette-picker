@@ -35,6 +35,18 @@ const appendPalettes = (palettes) => {
   }
 };
 
+function componentToHex(color) {
+  const hex = (+color).toString(16);
+  const newHex = hex.length === 1 ? '0' + hex : hex;
+  return newHex;
+}
+
+function rgbToHex(rgb) {
+  const rgbArray = rgb.split('(')[1].split(')')[0].split(', ');
+  return '#' + componentToHex(rgbArray[0]) +
+    componentToHex(rgbArray[1]) + componentToHex(rgbArray[2]);
+}
+
 const fetchPalettes = (projects) => {
   projects.forEach((project) => {
     fetch(`/api/v1/projects/${project.id}/palettes`)
@@ -44,7 +56,7 @@ const fetchPalettes = (projects) => {
 };
 
 const generateRandomColor = () => {
-  const letters = '0123456789ABCDEF';
+  const letters = '0123456789abcdef';
   let color = '#';
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
@@ -91,6 +103,14 @@ const checkProjectName = () => {
     });
 };
 
+const setToUnlocked = () => {
+  for (let i = 1; i < 6; i++) {
+    const palette = $('.main-palette').find(`.color${i}`);
+    palette.find('img').attr('src', './assets/unlock.svg');
+    palette.removeClass('locked');
+  }
+};
+
 const postPalette = () => {
   const newPalette = {
     name: $('.palette-name').val(),
@@ -112,6 +132,7 @@ const postPalette = () => {
     .then(response => response.json())
     .then(palette => appendPalettes(palette))
     .catch(error => console.log(error));
+  setToUnlocked();
   $('.palette-name').val('');
 };
 
@@ -144,7 +165,7 @@ const pageLoad = () => {
 
 const toggleLock = (target) => {
   const lock = $(target);
-
+  console.log(lock);
   if (lock.attr('src') === './assets/unlock.svg') {
     lock.attr('src', './assets/lock.svg');
     lock.closest('.color').addClass('locked');
@@ -155,12 +176,12 @@ const toggleLock = (target) => {
 };
 
 const loadMainPalette = (eventTarget) => {
-  const palette = eventTarget.closest('.palette');
+  const palette = eventTarget.closest('.saved-palette-colors');
 
   for (let i = 1; i < 6; i++) {
     const smallColor = $(palette).find(`.sc${i}`).css('background-color');
     $(`.color${i}`).css('background-color', smallColor);
-    $(`.color-container .color${i} .color-text`).text(smallColor);
+    $(`.color-container .color${i} .color-text`).text(rgbToHex(smallColor));
   }
 };
 
@@ -170,4 +191,4 @@ $('.save-palette-button').on('click', postPalette);
 $('.create-project-button').on('click', checkProjectName);
 $('.user-palettes').on('click', '.remove-palette-button', (event => deletePalette(event.target)));
 $('.main-palette').on('click', '.lock', event => toggleLock(event.target));
-$('.user-palettes').on('click', '.palette', event => loadMainPalette(event.target));
+$('.user-palettes').on('click', '.saved-palette-colors', event => loadMainPalette(event.target));
