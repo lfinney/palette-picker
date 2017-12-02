@@ -112,6 +112,7 @@ const postPalette = () => {
     .then(response => response.json())
     .then(palette => appendPalettes(palette))
     .catch(error => console.log(error));
+  setToUnlocked();
   $('.palette-name').val('');
 };
 
@@ -144,13 +145,22 @@ const pageLoad = () => {
 
 const toggleLock = (target) => {
   const lock = $(target);
-
+  console.log(lock);
   if (lock.attr('src') === './assets/unlock.svg') {
     lock.attr('src', './assets/lock.svg');
     lock.closest('.color').addClass('locked');
   } else {
     lock.attr('src', './assets/unlock.svg');
     lock.closest('.color').removeClass('locked');
+  }
+};
+
+const setToUnlocked = () => {
+  for (let i = 1; i < 6; i++) {
+    const palette = $('.main-palette').find(`.color${i}`);
+    palette.find('img').attr('src', './assets/unlock.svg');
+    palette.removeClass('locked');
+    console.log(palette);
   }
 };
 
