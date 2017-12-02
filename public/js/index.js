@@ -35,6 +35,18 @@ const appendPalettes = (palettes) => {
   }
 };
 
+function componentToHex(color) {
+  const hex = (+color).toString(16);
+  const newHex = hex.length === 1 ? '0' + hex : hex;
+  return newHex;
+}
+
+function rgbToHex(rgb) {
+  const rgbArray = rgb.split('(')[1].split(')')[0].split(', ');
+  return '#' + componentToHex(rgbArray[0]) +
+    componentToHex(rgbArray[1]) + componentToHex(rgbArray[2]);
+}
+
 const fetchPalettes = (projects) => {
   projects.forEach((project) => {
     fetch(`/api/v1/projects/${project.id}/palettes`)
@@ -44,7 +56,7 @@ const fetchPalettes = (projects) => {
 };
 
 const generateRandomColor = () => {
-  const letters = '0123456789ABCDEF';
+  const letters = '0123456789abcdef';
   let color = '#';
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
@@ -89,6 +101,14 @@ const checkProjectName = () => {
         alert('You must use a unique project name.');
       }
     });
+};
+
+const setToUnlocked = () => {
+  for (let i = 1; i < 6; i++) {
+    const palette = $('.main-palette').find(`.color${i}`);
+    palette.find('img').attr('src', './assets/unlock.svg');
+    palette.removeClass('locked');
+  }
 };
 
 const postPalette = () => {
@@ -155,22 +175,13 @@ const toggleLock = (target) => {
   }
 };
 
-const setToUnlocked = () => {
-  for (let i = 1; i < 6; i++) {
-    const palette = $('.main-palette').find(`.color${i}`);
-    palette.find('img').attr('src', './assets/unlock.svg');
-    palette.removeClass('locked');
-    console.log(palette);
-  }
-};
-
 const loadMainPalette = (eventTarget) => {
   const palette = eventTarget.closest('.palette');
 
   for (let i = 1; i < 6; i++) {
     const smallColor = $(palette).find(`.sc${i}`).css('background-color');
     $(`.color${i}`).css('background-color', smallColor);
-    $(`.color-container .color${i} .color-text`).text(smallColor);
+    $(`.color-container .color${i} .color-text`).text(rgbToHex(smallColor));
   }
 };
 
