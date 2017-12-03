@@ -65,10 +65,12 @@ input {
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.7); }
 
 .create-project-input {
-  width: 65%; }
+  width: 65%;
+  font-size: .8em; }
 
 .create-project-button {
-  width: 25%; }
+  width: 25%;
+  font-size: .7em; }
 
 .project {
   background-color: #747474; }
@@ -177,14 +179,15 @@ input {
 
 .create-palette-controls {
   height: 25%;
-  width: 65%;
+  width: 75%;
   display: flex;
   justify-content: space-between; }
 
 .project-dropdown, .palette-name, .save-palette-button {
   height: 100%;
   border-radius: 10px;
-  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.7); }
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.7);
+  font-size: .8em; }
 
 .project-dropdown {
   width: 20%; }

@@ -82,10 +82,12 @@ input {
 
 .create-project-input {
   width: 65%;
+  font-size: .8em;
 }
 
 .create-project-button {
   width: 25%;
+  font-size: .7em;
 }
 
 .project {
@@ -213,7 +215,7 @@ input {
 
 .create-palette-controls {
   height: 25%;
-  width: 65%;
+  width: 75%;
   display: flex;
   justify-content: space-between;
 }
@@ -222,6 +224,7 @@ input {
   height: 100%;
   border-radius: $border-radius;
   box-shadow: $shadow;
+  font-size: .8em;
 }
 
 .project-dropdown {
