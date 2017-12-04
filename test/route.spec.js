@@ -15,7 +15,7 @@ describe('Client Routes', () => {
     return chai.request(server)
       .get('/')
       .then((response) => {
-        response.should.have.status(200);
+        response.should.have.status(400);
         response.should.be.html;
         response.res.text.includes('Palette Picker');
       })
