@@ -134,6 +134,7 @@ const postPalette = () => {
     .catch(error => console.log(error));
   setToUnlocked();
   $('.palette-name').val('');
+  $('.project-dropdown').val($('.project-dropdown option:first').val());
 };
 
 const deletePalette = (eventTarget) => {
