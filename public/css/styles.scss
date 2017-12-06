@@ -32,6 +32,7 @@ main {
 .user-palettes, .main-palette {
   margin: 20px;
   box-shadow: $shadow;
+  border-radius: $border-radius;
 }
 
 .user-palettes {
@@ -105,7 +106,6 @@ input {
 .palette {
   width: 100%;
   height: 80px;
-  // margin-top: 10px;
   display: flex;
   justify-content: space-around;
 }
@@ -124,8 +124,8 @@ input {
   z-index: 2;
   display: inline-block;
   background-color: rgba(65, 65, 65, .85);
-  color: $font-one;
   border-radius: $border-radius;
+  color: $font-one;
 }
 
 .small-color-container {
@@ -168,7 +168,6 @@ input {
 .color-container {
   height: 75%;
   width: 100%;
-  // box-shadow: $shadow;
 }
 
 .color {
@@ -278,4 +277,48 @@ input {
 .small-palette-right {
   border-top-right-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
+}
+
+@media (max-width: 600px) {
+  main {
+    // display: flex;
+    // flex-direction: column;
+    height: auto;
+    grid-template-columns: 100%;
+    grid-template-rows: 400px auto;
+    grid-template-areas: "main-palette" "user-palettes";
+    overflow: scroll;
+    margin-right: 0;
+  }
+
+  main::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-palette {
+    height: 90%;
+    margin: auto;
+    width: 90%;
+  }
+
+  .user-palettes {
+    margin-right: 20px;
+    overflow: visible;
+    max-height: 100%;
+  }
+
+  .color-container {
+    height: 65%;
+  }
+
+  .palette-controls {
+    height: 35%;
+  }
+
+  .create-palette-controls {
+  }
+
+  .project-dropdown, .palette-name, .save-palette-button {
+    font-size: .4em;
+  }
 }

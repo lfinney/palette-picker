@@ -25,7 +25,8 @@ main {
 
 .user-palettes, .main-palette {
   margin: 20px;
-  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.7); }
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.7);
+  border-radius: 10px; }
 
 .user-palettes {
   grid-area: user-palettes;
@@ -101,8 +102,8 @@ input {
   z-index: 2;
   display: inline-block;
   background-color: rgba(65, 65, 65, 0.85);
-  color: #cfcfcf;
-  border-radius: 10px; }
+  border-radius: 10px;
+  color: #cfcfcf; }
 
 .small-color-container {
   display: flex;
@@ -228,5 +229,36 @@ input {
 .small-palette-right {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px; }
+
+@media (max-width: 600px) {
+  main {
+    height: auto;
+    grid-template-columns: 100%;
+    grid-template-rows: 400px auto;
+    grid-template-areas: "main-palette" "user-palettes";
+    overflow: scroll;
+    margin-right: 0; }
+
+  main::-webkit-scrollbar {
+    display: none; }
+
+  .main-palette {
+    height: 90%;
+    margin: auto;
+    width: 90%; }
+
+  .user-palettes {
+    margin-right: 20px;
+    overflow: visible;
+    max-height: 100%; }
+
+  .color-container {
+    height: 65%; }
+
+  .palette-controls {
+    height: 35%; }
+
+  .project-dropdown, .palette-name, .save-palette-button {
+    font-size: .4em; } }
 
 /*# sourceMappingURL=styles.css.map */
