@@ -14,6 +14,15 @@ app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 app.use(express.static(__dirname + '/public'));
 
+const httpsRedirect = (request, response, next) => {
+  if (!request.secure) {
+    return response.redirect('https://' + request.get('host') + request.url);
+  }
+  next();
+};
+
+app.use(httpsRedirect);
+
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
     .then((projects) => {
