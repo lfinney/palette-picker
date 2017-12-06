@@ -10,18 +10,19 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
-app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Palette Picker';
-app.use(express.static(__dirname + '/public'));
-
 const httpsRedirect = (request, response, next) => {
-  if (!request.secure) {
-    return response.redirect('https://' + request.get('host') + request.url);
+  if (request.header('x-forwarded-proto') !== 'https') {
+    return response.redirect(`https://${request.get('host')}${request.url}`);
   }
   next();
 };
 
-app.use(httpsRedirect);
+if (process.env.NODE_ENV === 'production') { app.use(httpsRedirect); }
+
+
+app.set('port', process.env.PORT || 3000);
+app.locals.title = 'Palette Picker';
+app.use(express.static(__dirname + '/public'));
 
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
