@@ -16,7 +16,7 @@ export const saveOfflinePalettes = (palette) => {
 };
 
 export const getSinglePalette = (id) => {
-
+  return db.palettes.get(parseInt(id));
 };
 
 export const loadOfflinePalettes = () => {

@@ -210,7 +210,16 @@ const setToUnlocked = () => {
 };
 
 const offlinePalettesForDexie = palette => {
-  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* saveOfflinePalettes */])({}).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* saveOfflinePalettes */])({
+    id: palette.id,
+    name: palette.name,
+    color1: palette.color1,
+    color2: palette.color2,
+    color3: palette.color3,
+    color4: palette.color4,
+    color5: palette.color5,
+    projectId: palette.projectId
+  }).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
 };
 
 const postPalette = () => {
@@ -230,7 +239,11 @@ const postPalette = () => {
     headers: {
       'content-type': 'application/json'
     }
-  }).then(response => response.json()).then(palette => appendPalettes(palette)).catch(error => console.log(error));
+  }).then(response => response.json()).then(palette => {
+    console.log('postpaleete', palette);
+    offlinePalettesForDexie(palette[0]);
+    appendPalettes(palette);
+  }).catch(error => console.log(error));
   setToUnlocked();
   $('.palette-name').val('');
   $('.project-dropdown').val($('.project-dropdown option:first').val());
@@ -260,7 +273,6 @@ const pageLoad = () => {
 
 const toggleLock = target => {
   const lock = $(target);
-  console.log(lock);
   if (lock.attr('src') === './assets/unlock.svg') {
     lock.attr('src', './assets/lock.svg');
     lock.closest('.color').addClass('locked');
@@ -325,7 +337,9 @@ const saveOfflinePalettes = palette => {
 /* harmony export (immutable) */ __webpack_exports__["a"] = saveOfflinePalettes;
 
 
-const getSinglePalette = id => {};
+const getSinglePalette = id => {
+  return db.palettes.get(parseInt(id));
+};
 /* unused harmony export getSinglePalette */
 
 

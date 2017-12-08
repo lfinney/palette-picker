@@ -130,6 +130,14 @@ const setToUnlocked = () => {
 
 const offlinePalettesForDexie = (palette) => {
   saveOfflinePalettes({
+    id: palette.id,
+    name: palette.name,
+    color1: palette.color1,
+    color2: palette.color2,
+    color3: palette.color3,
+    color4: palette.color4,
+    color5: palette.color5,
+    projectId: palette.projectId
   })
     .then(response => console.log('Successfuly stored in indexedDB'))
     .catch(error => console.error('Error storing locally: ', error));
@@ -155,7 +163,11 @@ const postPalette = () => {
     }
   })
     .then(response => response.json())
-    .then(palette => appendPalettes(palette))
+    .then((palette) => {
+      console.log('postpaleete', palette);
+      offlinePalettesForDexie(palette[0]);
+      appendPalettes(palette);
+    })
     .catch(error => console.log(error));
   setToUnlocked();
   $('.palette-name').val('');
@@ -191,7 +203,6 @@ const pageLoad = () => {
 
 const toggleLock = (target) => {
   const lock = $(target);
-  console.log(lock);
   if (lock.attr('src') === './assets/unlock.svg') {
     lock.attr('src', './assets/lock.svg');
     lock.closest('.color').addClass('locked');
