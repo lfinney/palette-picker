@@ -1,3 +1,10 @@
+import {
+  saveOfflineProjects,
+  saveOfflinePalettes,
+  getSinglePalette,
+  loadOfflinePalettes
+} from './indexedDB';
+
 const appendProjectSelector = (project) => {
   $('.project-dropdown')
     .append(`<option value="${project.id}">${project.name}</option>`);
@@ -74,6 +81,12 @@ const rollColors = () => {
   }
 };
 
+const offlineProjectsForDexie = (id, name) => {
+  saveOfflineProjects({ id, name })
+    .then(response => console.log('Successfuly stored in indexedDB'))
+    .catch(error => console.error('Error storing locally: ', error));
+};
+
 const postProject = (projectTitle) => {
   fetch('/api/v1/projects', {
     method: 'POST',
@@ -83,7 +96,10 @@ const postProject = (projectTitle) => {
     }
   })
     .then(response => response.json())
-    .then(project => appendProject(project))
+    .then((project) => {
+      appendProject(project);
+      offlineProjectsForDexie(project[0].id, project[0].name);
+    })
     .catch(error => console.log(error));
 };
 
@@ -111,6 +127,23 @@ const setToUnlocked = () => {
   }
 };
 
+
+const offlinePalettesForDexie = (palette) => {
+  saveOfflinePalettes({
+    id: palette.id,
+    name: palette.name,
+    color1: palette.color1,
+    color2: palette.color2,
+    color3: palette.color3,
+    color4: palette.color4,
+    color5: palette.color5,
+    projectId: palette.projectId
+  })
+    .then(response => console.log('Successfuly stored in indexedDB'))
+    .catch(error => console.error('Error storing locally: ', error));
+};
+
+
 const postPalette = () => {
   const newPalette = {
     name: $('.palette-name').val(),
@@ -130,7 +163,11 @@ const postPalette = () => {
     }
   })
     .then(response => response.json())
-    .then(palette => appendPalettes(palette))
+    .then((palette) => {
+      console.log('postpaleete', palette);
+      offlinePalettesForDexie(palette[0]);
+      appendPalettes(palette);
+    })
     .catch(error => console.log(error));
   setToUnlocked();
   $('.palette-name').val('');
@@ -166,7 +203,6 @@ const pageLoad = () => {
 
 const toggleLock = (target) => {
   const lock = $(target);
-  console.log(lock);
   if (lock.attr('src') === './assets/unlock.svg') {
     lock.attr('src', './assets/lock.svg');
     lock.closest('.color').addClass('locked');

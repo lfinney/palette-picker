@@ -6,6 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha --exit",
     "css": "sass --watch public/css/styles.scss:public/css/styles.css",
+    "build": "./node_modules/webpack/bin/webpack.js",
     "lint": "./node_modules/.bin/eslint ./"
   },
   "keywords": [],
@@ -13,11 +14,16 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "dexie": "^2.0.1",
     "express": "^4.16.2",
     "knex": "^0.14.2",
-    "pg": "^7.4.0"
+    "pg": "^7.4.0",
+    "webpack": "^3.10.0"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "chai": "^4.1.2",
     "chai-http": "git+https://github.com/chaijs/chai-http.git#3ea4524",
     "eslint": "^4.12.1",
