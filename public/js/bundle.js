@@ -210,9 +210,7 @@ const setToUnlocked = () => {
 };
 
 const offlinePalettesForDexie = palette => {
-  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* saveOfflinePalettes */])({
-    id, name
-  }).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* saveOfflinePalettes */])({}).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
 };
 
 const postPalette = () => {
@@ -236,7 +234,6 @@ const postPalette = () => {
   setToUnlocked();
   $('.palette-name').val('');
   $('.project-dropdown').val($('.project-dropdown option:first').val());
-  //saveOfflinePalettes
 };
 
 const deletePalette = eventTarget => {
@@ -335,16 +332,6 @@ const getSinglePalette = id => {};
 const loadOfflinePalettes = () => {};
 /* unused harmony export loadOfflinePalettes */
 
-
-//import using a script tag in html
-//we need
-// New palette or project save to IDB
-// Post it to server
-//
-// If offline, load from IDB
-// multiple ways to detect online offline status; best solution might be to
-// check for successful 200 request and if it fails pass to load from
-// indexedDB
 
 /***/ }),
 /* 3 */

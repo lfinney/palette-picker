@@ -22,13 +22,3 @@ export const getSinglePalette = (id) => {
 export const loadOfflinePalettes = () => {
 
 };
-
-//import using a script tag in html
-//we need
-  // New palette or project save to IDB
-  // Post it to server
-  //
-  // If offline, load from IDB
-    // multiple ways to detect online offline status; best solution might be to
-    // check for successful 200 request and if it fails pass to load from
-    // indexedDB

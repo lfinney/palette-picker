@@ -130,7 +130,6 @@ const setToUnlocked = () => {
 
 const offlinePalettesForDexie = (palette) => {
   saveOfflinePalettes({
-    id, name
   })
     .then(response => console.log('Successfuly stored in indexedDB'))
     .catch(error => console.error('Error storing locally: ', error));
@@ -161,8 +160,6 @@ const postPalette = () => {
   setToUnlocked();
   $('.palette-name').val('');
   $('.project-dropdown').val($('.project-dropdown option:first').val());
-  //saveOfflinePalettes
-
 };
 
 const deletePalette = (eventTarget) => {
