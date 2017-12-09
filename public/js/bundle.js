@@ -145,9 +145,15 @@ function rgbToHex(rgb) {
   return '#' + componentToHex(rgbArray[0]) + componentToHex(rgbArray[1]) + componentToHex(rgbArray[2]);
 }
 
+// const getPalettesFromDexie = (palette) => {
+//   loadOfflinePalettes()
+//     .then(palettes => appendPalettes(palettes))
+//     .catch(error => console.error('Error storing locally: ', error));
+// };
+
 const fetchPalettes = projects => {
   projects.forEach(project => {
-    fetch(`/api/v1/projects/${project.id}/palettes`).then(response => response.json()).then(palettes => appendPalettes(palettes));
+    fetch(`/api/v1/projects/${project.id}/palettes`).then(response => response.json()).then(palettes => appendPalettes(palettes)).catch(error => console.error(`No palettes found for this project: ${error}`));
   });
 };
 
@@ -259,11 +265,21 @@ const deletePalette = eventTarget => {
   $(eventTarget).closest('.palette').remove();
 };
 
+const getProjectsFromDexie = () => {
+  loadOfflineProjects().then(projects => {
+    appendProject(projects);
+    fetchPalettes(projects);
+  }).catch(error => console.error('Error storing locally: ', error));
+};
+
 const fetchProjects = () => {
   fetch('/api/v1/projects').then(response => response.json()).then(fetchedProjects => {
     appendProject(fetchedProjects);
     fetchPalettes(fetchedProjects);
-  }).catch(error => console.log(error));
+  }).catch(error => {
+    getProjectsFromDexie();
+    console.error(`Error: ${error}. Will look for data in indexedDB`);
+  });
 };
 
 const pageLoad = () => {
@@ -337,13 +353,19 @@ const saveOfflinePalettes = palette => {
 /* harmony export (immutable) */ __webpack_exports__["a"] = saveOfflinePalettes;
 
 
-const getSinglePalette = id => {
-  return db.palettes.get(parseInt(id));
+// export const getSinglePalette = (id) => {
+//   return db.palettes.get(parseInt(id));
+// };
+
+const loadOfflineProjects = () => {
+  return db.projects.toArray();
 };
-/* unused harmony export getSinglePalette */
+/* unused harmony export loadOfflineProjects */
 
 
-const loadOfflinePalettes = () => {};
+const loadOfflinePalettes = () => {
+  return db.palettes.toArray();
+};
 /* unused harmony export loadOfflinePalettes */
 
 
