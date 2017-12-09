@@ -1,6 +1,6 @@
 this.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('assets-v1').then((cache) => {
+    caches.open('assets-v2').then((cache) => {
       return cache.addAll([
         '/',
         '/js/bundle.js',
@@ -21,7 +21,7 @@ this.addEventListener('fetch', (event) => {
 });
 
 this.addEventListener('actiavte', (event) => {
-  let cacheWhiteList = ['assets-v1'];
+  let cacheWhiteList = ['assets-v2'];
 
   event.waitUntil(
     caches.keys().then((keyList) => {

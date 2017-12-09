@@ -177,7 +177,7 @@ const rollColors = () => {
 };
 
 const offlineProjectsForDexie = (id, name) => {
-  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["b" /* saveOfflineProjects */])({ id, name }).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["c" /* saveOfflineProjects */])({ id, name }).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
 };
 
 const postProject = projectTitle => {
@@ -216,7 +216,7 @@ const setToUnlocked = () => {
 };
 
 const offlinePalettesForDexie = palette => {
-  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* saveOfflinePalettes */])({
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["b" /* saveOfflinePalettes */])({
     id: palette.id,
     name: palette.name,
     color1: palette.color1,
@@ -266,13 +266,14 @@ const deletePalette = eventTarget => {
 };
 
 const getProjectsFromDexie = () => {
-  loadOfflineProjects().then(projects => {
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* loadOfflineProjects */])().then(projects => {
     appendProject(projects);
     fetchPalettes(projects);
   }).catch(error => console.error('Error storing locally: ', error));
 };
 
 const fetchProjects = () => {
+  console.log('fetch projects; loading page');
   fetch('/api/v1/projects').then(response => response.json()).then(fetchedProjects => {
     appendProject(fetchedProjects);
     fetchPalettes(fetchedProjects);
@@ -344,13 +345,13 @@ db.version(1).stores({
 const saveOfflineProjects = project => {
   return db.projects.add(project);
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = saveOfflineProjects;
+/* harmony export (immutable) */ __webpack_exports__["c"] = saveOfflineProjects;
 
 
 const saveOfflinePalettes = palette => {
   return db.palettes.add(palette);
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = saveOfflinePalettes;
+/* harmony export (immutable) */ __webpack_exports__["b"] = saveOfflinePalettes;
 
 
 // export const getSinglePalette = (id) => {
@@ -360,7 +361,7 @@ const saveOfflinePalettes = palette => {
 const loadOfflineProjects = () => {
   return db.projects.toArray();
 };
-/* unused harmony export loadOfflineProjects */
+/* harmony export (immutable) */ __webpack_exports__["a"] = loadOfflineProjects;
 
 
 const loadOfflinePalettes = () => {

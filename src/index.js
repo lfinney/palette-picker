@@ -2,6 +2,7 @@ import {
   saveOfflineProjects,
   saveOfflinePalettes,
   getSinglePalette,
+  loadOfflineProjects,
   loadOfflinePalettes
 } from './indexedDB';
 
@@ -202,6 +203,7 @@ const getProjectsFromDexie = () => {
 };
 
 const fetchProjects = () => {
+  console.log('fetch projects; loading page');
   fetch('/api/v1/projects')
     .then(response => response.json())
     .then((fetchedProjects) => {
