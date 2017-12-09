@@ -20,7 +20,7 @@ this.addEventListener('fetch', (event) => {
   );
 });
 
-this.addEventListener('actiavte', (event) => {
+this.addEventListener('activate', (event) => {
   let cacheWhiteList = ['assets-v2'];
 
   event.waitUntil(

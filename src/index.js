@@ -55,18 +55,24 @@ function rgbToHex(rgb) {
     componentToHex(rgbArray[1]) + componentToHex(rgbArray[2]);
 }
 
-// const getPalettesFromDexie = (palette) => {
-//   loadOfflinePalettes()
-//     .then(palettes => appendPalettes(palettes))
-//     .catch(error => console.error('Error storing locally: ', error));
-// };
+const getPalettesFromDexie = (id) => {
+  loadOfflinePalettes(id)
+    .then((palettes) => {
+      const indexedPalettes = palettes.filter(palette => palette.projectId === id);
+      appendPalettes(indexedPalettes);
+    })
+    .catch(error => console.error('Error retrieving data from indexedDB: ', error));
+};
 
 const fetchPalettes = (projects) => {
   projects.forEach((project) => {
     fetch(`/api/v1/projects/${project.id}/palettes`)
       .then(response => response.json())
       .then(palettes => appendPalettes(palettes))
-      .catch(error => console.error(`No palettes found for this project: ${error}`));
+      .catch((error) => {
+        getPalettesFromDexie(project.id);
+        console.error(`No palettes found for this project: ${error}`);
+      });
   });
 };
 
@@ -199,7 +205,7 @@ const getProjectsFromDexie = () => {
       appendProject(projects);
       fetchPalettes(projects);
     })
-    .catch(error => console.error('Error storing locally: ', error));
+    .catch(error => console.error('Error retrieving data from indexedDB: ', error));
 };
 
 const fetchProjects = () => {

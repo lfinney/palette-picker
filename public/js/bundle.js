@@ -145,15 +145,19 @@ function rgbToHex(rgb) {
   return '#' + componentToHex(rgbArray[0]) + componentToHex(rgbArray[1]) + componentToHex(rgbArray[2]);
 }
 
-// const getPalettesFromDexie = (palette) => {
-//   loadOfflinePalettes()
-//     .then(palettes => appendPalettes(palettes))
-//     .catch(error => console.error('Error storing locally: ', error));
-// };
+const getPalettesFromDexie = id => {
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* loadOfflinePalettes */])(id).then(palettes => {
+    const indexedPalettes = palettes.filter(palette => palette.projectId === id);
+    appendPalettes(indexedPalettes);
+  }).catch(error => console.error('Error retrieving data from indexedDB: ', error));
+};
 
 const fetchPalettes = projects => {
   projects.forEach(project => {
-    fetch(`/api/v1/projects/${project.id}/palettes`).then(response => response.json()).then(palettes => appendPalettes(palettes)).catch(error => console.error(`No palettes found for this project: ${error}`));
+    fetch(`/api/v1/projects/${project.id}/palettes`).then(response => response.json()).then(palettes => appendPalettes(palettes)).catch(error => {
+      getPalettesFromDexie(project.id);
+      console.error(`No palettes found for this project: ${error}`);
+    });
   });
 };
 
@@ -177,7 +181,7 @@ const rollColors = () => {
 };
 
 const offlineProjectsForDexie = (id, name) => {
-  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["c" /* saveOfflineProjects */])({ id, name }).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["d" /* saveOfflineProjects */])({ id, name }).then(response => console.log('Successfuly stored in indexedDB')).catch(error => console.error('Error storing locally: ', error));
 };
 
 const postProject = projectTitle => {
@@ -216,7 +220,7 @@ const setToUnlocked = () => {
 };
 
 const offlinePalettesForDexie = palette => {
-  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["b" /* saveOfflinePalettes */])({
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["c" /* saveOfflinePalettes */])({
     id: palette.id,
     name: palette.name,
     color1: palette.color1,
@@ -266,10 +270,10 @@ const deletePalette = eventTarget => {
 };
 
 const getProjectsFromDexie = () => {
-  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["a" /* loadOfflineProjects */])().then(projects => {
+  Object(__WEBPACK_IMPORTED_MODULE_0__indexedDB__["b" /* loadOfflineProjects */])().then(projects => {
     appendProject(projects);
     fetchPalettes(projects);
-  }).catch(error => console.error('Error storing locally: ', error));
+  }).catch(error => console.error('Error retrieving data from indexedDB: ', error));
 };
 
 const fetchProjects = () => {
@@ -345,13 +349,13 @@ db.version(1).stores({
 const saveOfflineProjects = project => {
   return db.projects.add(project);
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = saveOfflineProjects;
+/* harmony export (immutable) */ __webpack_exports__["d"] = saveOfflineProjects;
 
 
 const saveOfflinePalettes = palette => {
   return db.palettes.add(palette);
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = saveOfflinePalettes;
+/* harmony export (immutable) */ __webpack_exports__["c"] = saveOfflinePalettes;
 
 
 // export const getSinglePalette = (id) => {
@@ -361,13 +365,13 @@ const saveOfflinePalettes = palette => {
 const loadOfflineProjects = () => {
   return db.projects.toArray();
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = loadOfflineProjects;
+/* harmony export (immutable) */ __webpack_exports__["b"] = loadOfflineProjects;
 
 
 const loadOfflinePalettes = () => {
   return db.palettes.toArray();
 };
-/* unused harmony export loadOfflinePalettes */
+/* harmony export (immutable) */ __webpack_exports__["a"] = loadOfflinePalettes;
 
 
 /***/ }),
