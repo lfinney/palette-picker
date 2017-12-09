@@ -3,7 +3,7 @@ this.addEventListener('install', (event) => {
     caches.open('assets-v1').then((cache) => {
       return cache.addAll([
         '/',
-        '/js/index.js',
+        '/js/bundle.js',
         '/css/styles.css',
         '/assets/lock.svg',
         '/assets/unlock.svg'

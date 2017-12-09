@@ -15,10 +15,14 @@ export const saveOfflinePalettes = (palette) => {
   return db.palettes.add(palette);
 };
 
-export const getSinglePalette = (id) => {
-  return db.palettes.get(parseInt(id));
+// export const getSinglePalette = (id) => {
+//   return db.palettes.get(parseInt(id));
+// };
+
+export const loadOfflineProjects = () => {
+  return db.projects.toArray();
 };
 
 export const loadOfflinePalettes = () => {
-
+  return db.palettes.toArray();
 };
