@@ -294,11 +294,11 @@ const pageLoad = () => {
 
 const toggleLock = target => {
   const lock = $(target);
-  if (lock.attr('src') === './public/assets/unlock.svg') {
-    lock.attr('src', './public/assets/lock.svg');
+  if (lock.attr('src') === './assets/unlock.svg') {
+    lock.attr('src', './assets/lock.svg');
     lock.closest('.color').addClass('locked');
   } else {
-    lock.attr('src', './public/assets/unlock.svg');
+    lock.attr('src', './assets/unlock.svg');
     lock.closest('.color').removeClass('locked');
   }
 };

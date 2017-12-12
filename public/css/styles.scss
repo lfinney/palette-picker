@@ -281,8 +281,6 @@ input {
 
 @media (max-width: 600px) {
   main {
-    // display: flex;
-    // flex-direction: column;
     height: auto;
     grid-template-columns: 100%;
     grid-template-rows: 400px auto;
@@ -299,6 +297,11 @@ input {
     height: 90%;
     margin: auto;
     width: 90%;
+  }
+
+  .lock {
+    padding: 5px;
+    height: 60%;
   }
 
   .user-palettes {

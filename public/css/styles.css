@@ -247,6 +247,10 @@ input {
     margin: auto;
     width: 90%; }
 
+  .lock {
+    padding: 5px;
+    height: 60%; }
+
   .user-palettes {
     margin-right: 20px;
     overflow: visible;
