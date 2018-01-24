@@ -3,6 +3,8 @@
 This project is a simple application for creating and saving color palettes.
 
 [Live application](https://palette-picker-lfinney.herokuapp.com/)
+
+
 ![palette picker gif](https://user-images.githubusercontent.com/22566946/35357474-e1939a9a-0110-11e8-8a9c-795795a9728c.gif)
 
 
