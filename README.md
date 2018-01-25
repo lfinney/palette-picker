@@ -16,7 +16,9 @@ Install dependencies with:
 npm install
 ```
 
-Start the application on localhost:3000 with the following command:
+In order to get this application functioning in your local environment you will need to have [PostgreSQL](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb) installed and create a database named: `palette_picker`
+
+Start the application locally with the following command:
 
 ```
 npm start
